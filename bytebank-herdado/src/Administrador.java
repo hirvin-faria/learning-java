@@ -1,11 +1,21 @@
 
 public class Administrador extends Funcionario implements Autenticavel {
 	
-	private int senha;
+	private Autenticador autenticador;
 	
+	public Administrador() {
+		// Composicao - promove reutilizacao de codigo
+		this.autenticador = new Autenticador();
+	}
+
 	@Override
 	public void setSenha(int senha) {
-		this.senha = senha;
+		this.autenticador.setSenha(senha);
+	}
+
+	@Override
+	public boolean autentica(int senha) {
+		return this.autenticador.autentica(senha);
 	}
 	
 	@Override
@@ -13,12 +23,4 @@ public class Administrador extends Funcionario implements Autenticavel {
 		return 50;
 	}
 
-	@Override
-	public boolean autentica(int senha) {
-		if(this.senha == senha) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 }
